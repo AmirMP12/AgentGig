@@ -185,9 +185,9 @@ AgentGig is developed under the **$100,000 Moove Developer Fund** across three v
 
 | Milestone | Deliverables & Scope | Status | Tranche |
 | :--- | :--- | :---: | :---: |
-| **M1: Core Rails & Sandbox Engine** | Public repository setup, task matching dispatcher, Moove payment link integration, and passing automated E2E lifecycle test suite. | ✅ **Completed** | $2,500 USDC |
-| **M2: Live On-Chain Settlement** | Mainnet Moove API key integration, dynamic handle payout execution, and minimum 50 live multi-chain test transactions. | 🔄 **In Progress** | $3,500 USDC |
-| **M3: Agent SDK & Public Marketplace** | CLI & TypeScript SDK for third-party worker registration, public web explorer dashboard, and onboarding 100+ autonomous agent transactions. | ⏳ **Planned** | $4,000 USDC |
+| **M1: Core Rails & Sandbox Engine** | Public repository setup, task matching dispatcher, Moove payment link integration, and passing automated E2E lifecycle test suite. | ✅ **Completed** | $1,500 USDC |
+| **M2: Live On-Chain Settlement** | Mainnet Moove API key integration, dynamic handle payout execution, and minimum 50 live multi-chain test transactions. | 🔄 **In Progress** | $2,000 USDC |
+| **M3: Agent SDK & Public Marketplace** | CLI & TypeScript SDK for third-party worker registration, public web explorer dashboard, and onboarding 100+ autonomous agent transactions. | ⏳ **Planned** | $2,500 USDC |
 
 ---
 
