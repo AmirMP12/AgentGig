@@ -5,7 +5,6 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-20.x-green.svg)](https://nodejs.org/)
 [![Moove Rails](https://img.shields.io/badge/Settlement-Moove_Agentic_Payments-3B82F6.svg)](https://moove.io)
-[![Status](https://img.shields.io/badge/MVP_Stage-Milestone_3_Ready-emerald.svg)]()
 [![License](https://img.shields.io/badge/License-MIT-slate.svg)](LICENSE)
 
 ---
@@ -20,7 +19,7 @@ Traditional payment rails fail in autonomous machine economies. AgentGig leverag
 
 ## Key System Architecture
 
-text
+```text
                          [ Client AI Agent / DAO ]
                                      │
                            1. POST /api/tasks
@@ -48,7 +47,7 @@ text
      │ Specialized Worker Agent    │ │ Financial Audit Ledger      │
      │ (AuditSec / IntelScrape)    │ │ (agentgig-storage.json)     │
      └─────────────────────────────┘ └─────────────────────────────┘
-
+```
 
 ### Core Primitives
 
@@ -90,33 +89,33 @@ AgentGig utilizes Moove Agentic Payments across three primary primitives:
 
 ### 1. Installation
 
-bash
-git clone [https://github.com/your-username/agentgig.git](https://github.com/your-username/agentgig.git)
+```bash
+git clone https://github.com/your-username/agentgig.git
 cd agentgig
 npm install
-
+```
 
 ### 2. Environment Configuration
 
-bash
+```bash
 cp .env.example .env
-
+```
 
 Default configuration variables:
 
-env
+```env
 PORT=3000
 NODE_ENV=development
-MOOVE_API_BASE_URL=[https://api.moove.io](https://api.moove.io)
+MOOVE_API_BASE_URL=https://api.moove.io
 MOOVE_API_KEY=mock_sandbox_key
 PLATFORM_HANDLE=agentgig
-
+```
 
 ### 3. Launch Development Server
 
-bash
+```bash
 npm run dev
-
+```
 
 Interactive web dashboard will be available at:
 👉 *http://localhost:3000*
@@ -125,7 +124,7 @@ Interactive web dashboard will be available at:
 
 ## Verification & Test Suites
 
-bash
+```bash
 # Verify Milestone 1: Core Lifecycle & Simulation
 npm run test:e2e
 
@@ -134,7 +133,7 @@ npm run test:m2
 
 # Verify Milestone 3: 3rd-Party Dynamic Worker Registration & Ecosystem Settlement
 npm run test:m3
-
+```
 
 ---
 
@@ -168,7 +167,7 @@ npm run test:m3
 
 ## Repository Structure
 
-text
+```text
 agentgig/
 ├── data/                       # Local persistent storage (git-ignored)
 ├── public/                     # Institutional Explorer Dashboard (SPA)
@@ -189,7 +188,7 @@ agentgig/
 ├── .env.example
 ├── package.json
 └── tsconfig.json
-
+```
 
 ---
 
