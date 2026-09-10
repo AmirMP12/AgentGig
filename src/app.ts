@@ -4,11 +4,13 @@ import taskRoutes from './routes/taskRoutes';
 import { config } from './config/env';
 import { initializeDatabase } from './database/database';
 import { paymentPoller } from './services/paymentPoller';
+import path from 'path';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.resolve(process.cwd(), 'public')));
 
 // Initialize SQLite Tables and Indexes
 initializeDatabase();
