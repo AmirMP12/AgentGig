@@ -4,6 +4,7 @@ import {
   getTaskHandler,
   verifyPaymentHandler,
   listWorkersHandler,
+  registerWorkerHandler,
 } from '../controllers/taskController';
 import {
   listTransactionsHandler,
@@ -21,6 +22,7 @@ router.post('/tasks/:id/verify-payment', verifyPaymentHandler);
 
 // Worker Registry
 router.get('/workers', listWorkersHandler);
+router.post('/workers/register', registerWorkerHandler);
 
 // Transaction Ledger (Milestone 2 Feature)
 router.get('/transactions', listTransactionsHandler);
