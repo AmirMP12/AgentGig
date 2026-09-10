@@ -7,11 +7,13 @@ const dbFilePath = path.join(dataDir, 'agentgig-storage.json');
 export interface StorageSchema {
   tasks: Record<string, any>;
   transactions: any[];
+  customWorkers: any[];
 }
 
 export const inMemoryStore: StorageSchema = {
   tasks: {},
   transactions: [],
+  customWorkers: [],
 };
 
 export function initializeDatabase(): void {
@@ -25,6 +27,7 @@ export function initializeDatabase(): void {
       const parsed = JSON.parse(content);
       inMemoryStore.tasks = parsed.tasks || {};
       inMemoryStore.transactions = parsed.transactions || [];
+      inMemoryStore.customWorkers = parsed.customWorkers || [];
     } catch {
       persistToDisk();
     }
