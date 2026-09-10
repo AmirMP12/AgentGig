@@ -48,3 +48,28 @@ export const listWorkersHandler = (_req: Request, res: Response): void => {
   }));
   res.json(workers);
 };
+
+const registerWorkerSchema = z.object({
+  name: z.string().min(3),
+  capability: z.string().min(3),
+  mooveHandle: z.string().min(2),
+  webhookUrl: z.string().url().optional(),
+});
+
+export const registerWorkerHandler = (req: Request, res: Response): void => {
+  try {
+    const validated = registerWorkerSchema.parse(req.body);
+    const worker = agentRegistry.registerThirdPartyWorker(validated);
+    res.status(201).json({
+      message: 'Worker registered successfully',
+      worker: {
+        id: worker.id,
+        name: worker.name,
+        capability: worker.capability,
+        mooveHandle: `@${worker.mooveHandle}`,
+      },
+    });
+  } catch (err: unknown) {
+    res.status(400).json({ error: (err as Error).message });
+  }
+};
