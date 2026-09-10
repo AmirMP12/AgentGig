@@ -17,7 +17,7 @@ async function runMilestone3Verification() {
     capability: 'code-translation',
     mooveHandle: 'neural_trans',
   });
-  console.log(✅ Worker Registered Successfully: ${externalWorker.name} (@${externalWorker.mooveHandle}));
+  console.log(`✅ Worker Registered Successfully: ${externalWorker.name} (@${externalWorker.mooveHandle})`);
 
   // 2. Submit task requiring the new capability
   console.log('\n📦 Step 2: Creating task requiring new 3rd-party capability: "code-translation"...');
@@ -29,7 +29,7 @@ async function runMilestone3Verification() {
     clientHandle: 'cross_chain_bot',
   });
 
-  console.log(✅ Task Dispatched: ID ${task.id} -> Assigned to Worker: ${task.assignedWorkerId});
+  console.log(`✅ Task Dispatched: ID ${task.id} -> Assigned to Worker: ${task.assignedWorkerId}`);
 
   // 3. Wait for Background Poller to complete execution
   console.log('\n⏳ Step 3: Waiting for Autonomous Settlement & Execution (~3.5s)...');

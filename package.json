@@ -8,7 +8,8 @@
     "start": "node dist/app.js",
     "dev": "ts-node src/app.ts",
     "test:e2e": "ts-node scripts/test-e2e.ts",
-    "test:m2": "ts-node scripts/test-milestone2.ts"
+    "test:m2": "ts-node scripts/test-milestone2.ts",
+    "test:m3": "ts-node scripts/test-milestone3.ts"
   },
   "keywords": [
     "moove",
