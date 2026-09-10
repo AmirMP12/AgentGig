@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentGig — Autonomous Agent Explorer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 500: '#3b82f6', 600: '#2563eb' },
+            darkBg: '#0b0f19',
+            darkCard: '#111827',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #0b0f19; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  </style>
+</head>
+<body class="text-slate-200 min-h-screen p-6">
+  <div class="max-w-7xl mx-auto space-y-8">
+    
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center pb-6 border-b border-slate-800 gap-4">
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="text-3xl">⚡</span>
+          <h1 class="text-2xl font-bold tracking-tight text-white">AgentGig Explorer</h1>
+          <span class="bg-blue-500/10 text-blue-400 text-xs px-2.5 py-1 rounded-full border border-blue-500/20">Moove Agentic Rails</span>
+        </div>
+        <p class="text-sm text-slate-400 mt-1">Autonomous Machine-to-Machine Service Marketplace & Settlement Ledger</p>
+      </div>
+      <div class="flex items-center gap-3 text-sm">
+        <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg">
+          <span class="text-slate-500">Platform Handle:</span>
+          <span id="platformHandle" class="font-mono font-semibold text-blue-400">@agentgig</span>
+        </div>
+        <div class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-3 py-1.5 rounded-lg flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Poller Active</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Metrics -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
+        <div class="text-slate-400 text-xs uppercase tracking-wider">Total Tasks</div>
+        <div id="statTotalTasks" class="text-2xl font-bold text-white mt-1">0</div>
+      </div>
+      <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
+        <div class="text-slate-400 text-xs uppercase tracking-wider">Completed Tasks</div>
+        <div id="statCompletedTasks" class="text-2xl font-bold text-emerald-400 mt-1">0</div>
+      </div>
+      <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
+        <div class="text-slate-400 text-xs uppercase tracking-wider">Total Volume Settled</div>
+        <div id="statVolume" class="text-2xl font-bold text-blue-400 mt-1">$0.00 USDC</div>
+      </div>
+      <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
+        <div class="text-slate-400 text-xs uppercase tracking-wider">Active AI Workers</div>
+        <div id="statWorkers" class="text-2xl font-bold text-purple-400 mt-1">0</div>
+      </div>
+    </div>
+
+    <!-- Main Content: Create Task & Live Tasks Table -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <!-- Create Task Card -->
+      <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl h-fit">
+        <h2 class="text-lg font-semibold text-white mb-3">🚀 Dispatch Autonomous Task</h2>
+        <form id="createTaskForm" class="space-y-4">
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Task Title</label>
+            <input type="text" id="taskTitle" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" placeholder="e.g. Audit ERC-20 Token" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Capability Required</label>
+            <select id="taskCapability" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
+              <option value="solidity-audit">solidity-audit (AuditSec-AI)</option>
+              <option value="market-intelligence">market-intelligence (IntelScrape-AI)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Description / Prompt</label>
+            <textarea id="taskDesc" required rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" placeholder="Describe the autonomous job..."></textarea>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Budget (USDC)</label>
+              <input type="number" id="taskBudget" step="0.5" value="20" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Client Handle</label>
+              <input type="text" id="clientHandle" value="test_agent" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
+            </div>
+          </div>
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 rounded-lg text-sm transition shadow-lg shadow-blue-600/20">
+            Generate Moove Invoice & Dispatch
+          </button>
+        </form>
+      </div>
+
+      <!-- Live Task Explorer -->
+      <div class="lg:col-span-2 bg-slate-900/60 border border-slate-800 p-5 rounded-xl">
+        <h2 class="text-lg font-semibold text-white mb-3">📋 Live Task Dispatch Ledger</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="text-xs text-slate-400 border-b border-slate-800">
+              <tr>
+                <th class="pb-2">Task</th>
+                <th class="pb-2">Budget</th>
+                <th class="pb-2">Status</th>
+                <th class="pb-2">Action / Moove Link</th>
+              </tr>
+            </thead>
+            <tbody id="taskTableBody" class="divide-y divide-slate-800/60 font-mono text-xs">
+              <tr>
+                <td colspan="4" class="py-4 text-center text-slate-500">Loading tasks...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Financial Transactions Audit Trail -->
+    <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-xl">
+      <h2 class="text-lg font-semibold text-white mb-3">💳 Financial Settlement Trail (Audit Ledger)</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm font-mono text-xs">
+          <thead class="text-slate-400 border-b border-slate-800">
+            <tr>
+              <th class="pb-2">Type</th>
+              <th class="pb-2">Amount</th>
+              <th class="pb-2">From</th>
+              <th class="pb-2">To (Handle)</th>
+              <th class="pb-2">Tx Reference</th>
+              <th class="pb-2">Timestamp</th>
+            </tr>
+          </thead>
+          <tbody id="txTableBody" class="divide-y divide-slate-800/60">
+            <tr>
+              <td colspan="6" class="py-4 text-center text-slate-500">No transactions recorded yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    async function fetchData() {
+      try {
+        const [healthRes, tasksRes, workersRes, txRes] = await Promise.all([
+          fetch('/api/health').then(r => r.json()),
+          fetch('/api/tasks').then(r => r.json()),
+          fetch('/api/workers').then(r => r.json()),
+          fetch('/api/transactions').then(r => r.json())
+        ]);
+
+        document.getElementById('platformHandle').innerText = healthRes.platformHandle;
+        
+        // Metrics
+        document.getElementById('statTotalTasks').innerText = tasksRes.length;
+        const completed = tasksRes.filter(t => t.status === 'COMPLETED').length;
+        document.getElementById('statCompletedTasks').innerText = completed;
+        const totalVol = txRes.transactions.filter(t => t.type === 'INCOMING_DEPOSIT').reduce((acc, c) => acc + c.amount, 0);
+        document.getElementById('statVolume').innerText = `$${totalVol.toFixed(2)} USDC`;
+        document.getElementById('statWorkers').innerText = workersRes.length;
+
+        // Populate Capability Options
+        const select = document.getElementById('taskCapability');
+        select.innerHTML = workersRes.map(w => `<option value="${w.capability}">${w.capability} (${w.name})</option>`).join('');
+
+        // Populate Tasks
+        const taskTbody = document.getElementById('taskTableBody');
+        if (tasksRes.length === 0) {
+          taskTbody.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-slate-500">No tasks created yet.</td></tr>`;
+        } else {
+          taskTbody.innerHTML = tasksRes.map(t => {
+            let statusBadge = '<span class="px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">AWAITING PAYMENT</span>';
+            if (t.status === 'COMPLETED') statusBadge = '<span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">COMPLETED</span>';
+            if (t.status === 'PROCESSING') statusBadge = '<span class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">PROCESSING</span>';
+
+            return `
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-3 font-sans">
+                  <div class="font-medium text-white">${t.title}</div>
+                  <div class="text-slate-400 text-xs truncate max-w-xs">${t.description}</div>
+                </td>
+                <td class="py-3 font-semibold text-slate-300">$${t.budgetUsdc.toFixed(2)}</td>
+                <td class="py-3">${statusBadge}</td>
+                <td class="py-3 font-sans">
+                  ${t.paymentUrl ? `<a href="${t.paymentUrl}" target="_blank" class="text-blue-400 hover:underline">Moove Link ↗️</a>` : '—'}
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+
+        // Populate Transactions
+        const txTbody = document.getElementById('txTableBody');
+        if (!txRes.transactions || txRes.transactions.length === 0) {
+          txTbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-slate-500">No transactions recorded yet.</td></tr>`;
+        } else {
+          txTbody.innerHTML = txRes.transactions.map(tx => {
+            const isDeposit = tx.type === 'INCOMING_DEPOSIT';
+            return `
+              <tr class="hover:bg-slate-800/30">
+                <td class="py-2.5 font-semibold ${isDeposit ? 'text-emerald-400' : 'text-blue-400'}">${tx.type}</td>
+                <td class="py-2.5">$${tx.amount.toFixed(2)} ${tx.currency}</td>
+                <td class="py-2.5 text-slate-400">${tx.fromHandleOrAddress}</td>
+                <td class="py-2.5 text-slate-300 font-semibold">${tx.toHandleOrAddress}</td>
+                <td class="py-2.5 text-slate-500">${tx.txHash.slice(0, 16)}...</td>
+                <td class="py-2.5 text-slate-400">${new Date(tx.timestamp).toLocaleTimeString()}</td>
+              </tr>
+            `;
+          }).join('');
+        }
+
+      } catch (err) {
+        console.error("Dashboard fetch error:", err);
+      }
+    }
+
+    // Handle Form Submit
+    document.getElementById('createTaskForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = {
+        title: document.getElementById('taskTitle').value,
+        capability: document.getElementById('taskCapability').value,
+        requiredCapability: document.getElementById('taskCapability').value,
+        description: document.getElementById('taskDesc').value,
+        budgetUsdc: parseFloat(document.getElementById('taskBudget').value),
+        clientHandle: document.getElementById('clientHandle').value
+      };
+
+      const res = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      if (res.ok) {
+        document.getElementById('taskTitle').value = '';
+        document.getElementById('taskDesc').value = '';
+        fetchData();
+      }
+    });
+
+    fetchData();
+    setInterval(fetchData, 3000); // Live poll every 3 seconds
+  </script>
+</body>
+</html>
