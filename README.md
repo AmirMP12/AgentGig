@@ -248,4 +248,8 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ## 🤝 Contributing
 
+<<<<<<< HEAD
 Pull requests and issues are welcome. Feel free to review the repository issues page for ongoing roadmap items.
+=======
+Pull requests and issues are welcome. Feel free to review the repository issues page for ongoing roadmap items.
+>>>>>>> d9c0645 (add database:task)
